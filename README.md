@@ -29,11 +29,13 @@ cd crud_init-simple
 ```
 
 ### 2. Suba o banco PostgreSQL com Docker
+
 ```bash
 docker-compose up -d
 ```
 
 ### 3. Crie a tabela no banco
+
 ```bash
 docker exec -it postgres_container psql -U postgres  -d crudo
 
@@ -42,23 +44,24 @@ CREATE TABLE users (
   name TEXT NOT NULL
 );
 ```
+
 ### 4. Instale as dependências do Node.js
+
 ```bash
-npm install express pg dotenv
+npm install express pg dotenv cors
 ```
-### 5.  Inicie o servidor
+
+### 5. Inicie o servidor
+
 ```bash
 node src/index.js
 ```
+
 🌐 Frontend para teste
 Abra o arquivo frontend/index.html no navegador para testar os endpoints visualmente.
 
-
 📬 Endpoints disponíveis
-Método	      Rota	            Descrição
-POST	      /api/users	      Cria um novo usuário
-GET	        /api/users      	Lista todos usuários
-DELETE	    /api/users/:id	  Deleta um usuário por ID
-
-
-
+Método Rota Descrição
+POST /api/users Cria um novo usuário
+GET /api/users Lista todos usuários
+DELETE /api/users/:id Deleta um usuário por ID
