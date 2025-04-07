@@ -1,0 +1,68 @@
+
+---
+
+## 🌐 Frontend simples — `frontend/index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>CRUD Frontend</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
+    input, button { padding: 8px; margin: 5px 0; width: 100%; }
+    ul { list-style: none; padding: 0; }
+    li { padding: 6px; border: 1px solid #ccc; margin-top: 5px; display: flex; justify-content: space-between; align-items: center; }
+    button.delete { background-color: red; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Cadastro de Usuários</h1>
+  <input type="text" id="nameInput" placeholder="Digite o nome" />
+  <button onclick="createUser()">Cadastrar</button>
+
+  <h2>Usuários:</h2>
+  <ul id="userList"></ul>
+
+  <script>
+    const apiUrl = 'http://localhost:3000/api/users';
+
+    async function createUser() {
+      const name = document.getElementById('nameInput').value;
+      if (!name) return alert('Digite um nome!');
+      
+      await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+
+      document.getElementById('nameInput').value = '';
+      loadUsers();
+    }
+
+    async function deleteUser(id) {
+      await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+      loadUsers();
+    }
+
+    async function loadUsers() {
+      const res = await fetch(apiUrl);
+      const users = await res.json();
+
+      const list = document.getElementById('userList');
+      list.innerHTML = '';
+
+      users.forEach(user => {
+        const li = document.createElement('li');
+        li.innerHTML = `${user.name} <button class="delete" onclick="deleteUser(${user.id})">X</button>`;
+        list.appendChild(li);
+      });
+    }
+
+    // Carrega usuários ao abrir a página
+    loadUsers();
+  </script>
+</body>
+</html>
