@@ -26,33 +26,3 @@ API RESTful para cadastro de usuários, com as operações de **criar**, **lista
 ```bash
 git clone git@github.com:SEU_USUARIO/crud_init-simple.git
 cd crud_init-simple
-
-2-  Suba o banco PostgreSQL com Docker
-
-docker-compose up -d
-
-3. Crie a tabela no banco
-
-docker exec -it postgres_container psql -U postgres  -d crudo
-
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL
-);
-
-4. Instale as dependências do Node.js
-
-npm install express pg dotenv
-
-5. Inicie o servidor
-
-node src/index.js
-
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-📬 Endpoints disponíveis
-Método	      Rota	            Descrição
-POST	      /api/users	      Cria um novo usuário
-GET	        /api/users      	Lista todos usuários
-DELETE	    /api/users/:id	  Deleta um usuário por ID
-
